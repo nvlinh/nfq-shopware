@@ -1,0 +1,19 @@
+{
+  "name": "swag/plugin-skeleton",
+  "description": "Brand plugin",
+  "version": "v1.0.0",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "SwagBrand\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "SwagBrand\\SwagBrand",
+    "label": {
+      "de-DE": "Brand plugin",
+      "en-GB": "Brand plugin"
+    }
+  }
+}

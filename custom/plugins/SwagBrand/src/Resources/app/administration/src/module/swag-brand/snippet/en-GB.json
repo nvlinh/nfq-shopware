@@ -1,0 +1,33 @@
+{
+    "swag-brand": {
+        "general": {
+            "mainMenuItemGeneral": "Brands",
+            "descriptionTextModule": "Manage brands here",
+            "placeholderSearchBar": "Search brands..."
+        },
+        "list": {
+            "addButtonText": "Add brand",
+            "columnName": "Brand",
+            "columnLink": "Website Url"
+        },
+        "detail": {
+            "nameLabel": "Name",
+            "cancelButtonText": "Cancel",
+            "saveButtonText": "Save",
+            "errorTitle": "Error saving the brand",
+            "textHeadline": "New brand",
+            "textMediaSelection": "Media selection",
+            "buttonCancel": "Cancel",
+            "buttonSave": "Save",
+            "labelName": "Name",
+            "labelDescription": "Description",
+            "labelLink": "Website",
+            "placeholderName": "Enter brand name...",
+            "placeholderDescription": "Enter description...",
+            "placeholderLink": "Enter brand website...",
+            "messageSaveSuccess": "Brand \"{name}\" has been saved.",
+            "labelLogo": "Logo",
+            "labelUseAsLogo": "Use as Logo"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{% block swag_brand_list %}
+    <sw-page class="swag-brand-list">
+        {% block swag_brand_list_smart_bar_actions %}
+            <template slot="smart-bar-actions">
+                <sw-button variant="primary" :routerLink="{ name: 'swag.brand.create' }">
+                    {{ $t('swag-brand.list.addButtonText') }}
+                </sw-button>
+            </template>
+        {% endblock %}
+
+        <template slot="content">
+            {% block swag_brand_list_content %}
+                <sw-entity-listing
+                    v-if="brands"
+                    :items="brands"
+                    :repository="repository"
+                    :showSelection="false"
+                    :columns="columns"
+                    :isLoading="isLoading"
+                    detailRoute="swag.brand.detail"
+                    :criteriaLimit="limit"
+                    :sortBy="sortBy"
+                    :sortDirection="sortDirection"
+                >
+                </sw-entity-listing>
+            {% endblock %}
+
+            {% block swag_brand_list_grid_loader %}
+                <sw-loader v-if="isLoading"></sw-loader>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}
