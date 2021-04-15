@@ -5,6 +5,18 @@ import deDE from './snippet/de-DE.json';
 import enGB from './snippet/en-GB.json';
 
 const { Module } = Shopware;
+const { Application } = Shopware;
+
+Application.addServiceProviderDecorator('searchTypeService', searchTypeService => {
+    searchTypeService.upsertType('swag_brand', {
+        entityName: 'swag_brand',
+        entityService: 'swagBrandService',
+        placeholderSnippet: 'swag-brand.general.placeholderSearchBar',
+        listingRoute: 'swag.brand.list'
+    });
+
+    return searchTypeService;
+});
 
 Module.register('swag-brand', {
     type: 'plugin',
@@ -17,11 +29,12 @@ Module.register('swag-brand', {
         'de-DE': deDE,
         'en-GB': enGB
     },
+    entity: 'swag_brand',
 
     routes: {
         list: {
             component: 'swag-brand-list',
-            path: 'list'
+            path: 'list',
         },
         detail: {
             component: 'swag-brand-detail',
@@ -55,3 +68,5 @@ Module.register('swag-brand', {
         parent: 'sw-catalogue',
     }]
 });
+
+

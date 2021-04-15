@@ -47,11 +47,20 @@ Component.register('swag-brand-list', {
                 label: 'swag-brand.list.columnLink',
                 inlineEdit: 'string'
             }];
-        }
+        },
+        brandRepository() {
+            return this.repositoryFactory.create('swag_brand');
+        },
+
+        brandCriteria() {
+            const criteria = new Criteria(this.page, this.limit);
+            criteria.setTerm(this.term);
+            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
+            return criteria;
+        },
     },
 
     created() {
-        this.repository = this.repositoryFactory.create('swag_brand');
     },
 
     methods: {
@@ -62,8 +71,8 @@ Component.register('swag-brand-list', {
         getList() {
             this.isLoading = true;
 
-            this.repository
-                .search(new Criteria(), Shopware.Context.api)
+            this.brandRepository
+                .search(this.brandCriteria, Shopware.Context.api)
                 .then((result) => {
                     this.brands = result;
                     this.total = result.total;

@@ -1,4 +1,9 @@
 {
+    "global": {
+        "entities": {
+            "swag_brand": "Brands"
+        }
+    },
     "swag-brand": {
         "general": {
             "mainMenuItemGeneral": "Brands",

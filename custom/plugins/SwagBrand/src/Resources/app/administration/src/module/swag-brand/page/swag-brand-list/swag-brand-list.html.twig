@@ -1,5 +1,14 @@
 {% block swag_brand_list %}
     <sw-page class="swag-brand-list">
+        {% block sw_product_list_search_bar %}
+            <template #search-bar>
+                <sw-search-bar initialSearchType="swag_brand"
+                               :initialSearch="term"
+                               @search="onSearch">
+                </sw-search-bar>
+            </template>
+        {% endblock %}
+
         {% block swag_brand_list_smart_bar_actions %}
             <template slot="smart-bar-actions">
                 <sw-button variant="primary" :routerLink="{ name: 'swag.brand.create' }">
@@ -13,7 +22,7 @@
                 <sw-entity-listing
                     v-if="brands"
                     :items="brands"
-                    :repository="repository"
+                    :repository="brandRepository"
                     :showSelection="false"
                     :columns="columns"
                     :isLoading="isLoading"
