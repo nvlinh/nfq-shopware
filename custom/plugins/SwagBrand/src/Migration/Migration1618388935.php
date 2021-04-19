@@ -3,10 +3,13 @@
 namespace SwagBrand\Migration;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\Migration\InheritanceUpdaterTrait;
 use Shopware\Core\Framework\Migration\MigrationStep;
 
 class Migration1618388935 extends MigrationStep
 {
+    use InheritanceUpdaterTrait;
+
     public function getCreationTimestamp(): int
     {
         return 1618388935;
@@ -43,6 +46,8 @@ class Migration1618388935 extends MigrationStep
                 REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
+
+        $this->updateInheritance($connection, 'product', 'product_brand_id');
     }
 
     public function updateDestructive(Connection $connection): void

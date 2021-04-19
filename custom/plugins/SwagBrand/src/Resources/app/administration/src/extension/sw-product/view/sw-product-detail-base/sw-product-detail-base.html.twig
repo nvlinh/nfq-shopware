@@ -1,0 +1,27 @@
+{% block sw_product_detail_attribute_sets %}
+    {% parent() %}
+    <sw-card :title="$t('swag-brand-product.detail.brandCardLabel')"
+             :isLoading="isLoading">
+        <sw-inherit-wrapper
+            v-if="!isLoading"
+            v-model="product.productBrandId"
+            :inheritedValue="parentProduct ? parentProduct.productBrandId : null"
+            :label="$tc('swag-brand-product.detail.brandSelectLabel')">
+            <template #content="{ currentValue, updateCurrentValue, isInherited }">
+
+                <sw-entity-single-select
+                    :value="currentValue"
+                    @change="updateCurrentValue"
+                    entity="swag_brand"
+                    :disabled="isInherited"
+                    class="sw-select-product__select_brand"
+                    id="brandId"
+                    :key="isInherited"
+                    :error="productBrandIdError"
+                    :placeholder="$tc('swag-brand-product.detail.brandSelectPlaceholder')">
+                </sw-entity-single-select>
+
+            </template>
+        </sw-inherit-wrapper>
+    </sw-card>
+{% endblock %}

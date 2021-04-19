@@ -42,10 +42,10 @@ class BrandEntity extends Entity
      */
     protected $translations;
 
-//    /**
-//     * @var ProductCollection|null
-//     */
-//    protected $products;
+    /**
+     * @var ProductCollection|null
+     */
+    protected $products;
 
     /**
      * @var array|null
@@ -112,15 +112,15 @@ class BrandEntity extends Entity
         $this->translations = $translations;
     }
 
-//    public function getProducts(): ?ProductCollection
-//    {
-//        return $this->products;
-//    }
-//
-//    public function setProducts(ProductCollection $products): void
-//    {
-//        $this->products = $products;
-//    }
+    public function getProducts(): ?ProductCollection
+    {
+        return $this->products;
+    }
+
+    public function setProducts(ProductCollection $products): void
+    {
+        $this->products = $products;
+    }
 
     public function getCustomFields(): ?array
     {

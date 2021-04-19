@@ -14,6 +14,10 @@
             <tag name="shopware.entity.definition" entity="swag_brand_translation" />
         </service>
 
+        <service id="SwagBrand\Core\Content\Product\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
         <service id="SwagBrand\Resources\snippet\en_GB\SnippetFile_en_GB">
             <tag name="shopware.snippet.file" priority="100"/>
         </service>

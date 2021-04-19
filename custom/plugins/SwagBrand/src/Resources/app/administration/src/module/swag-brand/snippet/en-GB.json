@@ -34,5 +34,13 @@
             "labelLogo": "Logo",
             "labelUseAsLogo": "Use as Logo"
         }
+    },
+
+    "swag-brand-product": {
+        "detail": {
+            "brandCardLabel": "Brand",
+            "brandSelectLabel": "Associated brand",
+            "brandSelectPlaceholder": "Add brand..."
+        }
     }
 }
