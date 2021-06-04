@@ -1,0 +1,11 @@
+{% block block_basic_call_to_action %}
+    {% set element = block.slots.getSlot('block') %}
+    {% set id = element.id %}
+    <div data-cms-element-id="{{ id }}" class="basic_call_to_action">
+        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type
+            ~ '.html.twig'
+            ignore
+            missing
+        %}
+    </div>
+{% endblock %}

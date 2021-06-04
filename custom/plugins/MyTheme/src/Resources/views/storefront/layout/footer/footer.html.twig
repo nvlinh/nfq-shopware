@@ -1,0 +1,176 @@
+{% sw_extends '@Storefront/storefront/layout/footer/footer.html.twig' %}
+
+{% block layout_footer_inner_container %}
+    {% set socials = [
+        {
+            'title': 'Facebook',
+            'icon': 'fa fa-facebook',
+            'url': theme_config('social-facebook')
+        },
+        {
+            'title': 'Twitter',
+            'icon': 'fa fa-twitter',
+            'url': theme_config('social-twitter')
+        },
+        {
+            'title': 'Instagram',
+            'icon': 'fa fa-instagram',
+            'url': theme_config('social-instagram')
+        },
+        {
+            'title': 'Youtube',
+            'icon': 'fa fa-youtube',
+            'url': theme_config('social-youtube')
+        }
+    ] %}
+
+
+    {% block layout_footer_navigation %}
+        <div id="footerColumns" class="footer-columns" data-collapse-footer="true">
+            <div class="container">
+                <div class="row">
+                    {% block layout_footer_company_info %}
+                        <div class="col-md-6 footer-column">
+                            <b>{{ 'customFields.custom_company_info_head_office' | trans }}</b>: {{ context.salesChannel.translated.customFields.custom_company_info_head_office|raw }}
+                            <b>{{ 'customFields.custom_company_info_factory_address' | trans }}</b>: {{ context.salesChannel.translated.customFields.custom_company_info_factory_address }}
+                            <br>
+                            <b>{{ 'customFields.custom_company_info_ address' | trans }}</b>: {{ context.salesChannel.translated.customFields["custom_company_info_ address"] }}
+                            <br>
+                            <b>{{ 'customFields.custom_company_info_phone' | trans }}</b>: {{ context.salesChannel.translated.customFields.custom_company_info_phone }}
+                            <br>
+                            <b class="w37">{{ 'customFields.custom_company_info_email_contact' | trans }}</b><span
+                                class="w4">:</span><span
+                                class="w1"> {{ context.salesChannel.translated.custom_company_info_email_contact }}</span><br>
+                        </div>
+                    {% endblock %}
+
+                    {% block layout_footer_newsletter %}
+                        <div class="col-md-3 footer-column">
+                            <div class="footer-newsletter-container">
+                                {% block layout_footer_newsletter_infotext %}
+                                    <div class="infotext">
+                                        <h5 class=" newsletter-headline">{{ "footer.newsletterHeadline"|trans|sw_sanitize }}</h5>
+                                    </div>
+                                {% endblock %}
+
+                                <div class="cms-block cms-block-form">
+                                    <div class="cms-element-form">
+                                        <form action="{{ path('frontend.form.newsletter.register.handle') }}"
+                                              method="post"
+                                              data-form-csrf-handler="true" data-form-validation="true">
+                                            <div class="mb-4">
+                                                {% block layout_footer_newsletter_email %}
+                                                    {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                                                        with {
+                                                        fieldName: 'email',
+                                                        type: 'email',
+                                                        placeholder: 'newsletter.labelMail'
+                                                    } %}
+                                                {% endblock %}
+                                                {% block layout_footer_newsletter_submit %}
+                                                    <button type="submit" aria-label="Submit" class="btn btn-primary">
+                                                        {{ "general.formSubmit"|trans|sw_sanitize }}
+                                                    </button>
+                                                {% endblock %}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    {% block layout_footer_socials_content %}
+                        <div class="col-md-3 footer-column">
+                            <div class="languages-menu">
+                                {% if  page.header.languages.count >= 1 %}
+                                    <div class="text-right">
+                                        <form method="post"
+                                              action="{{ path('frontend.checkout.switch-language') }}"
+                                              class="language-form"
+                                              data-form-auto-submit="true">
+
+                                            {% block layout_header_actions_language_widget_form_csrf %}
+                                                {{ sw_csrf('frontend.checkout.switch-language') }}
+                                            {% endblock %}
+
+                                            {% for language in page.header.languages %}
+                                                <span
+                                                    class="top-bar-list-item {% if language.id is same as(page.header.activeLanguage.id) %} item-checked{% endif %}"
+                                                    title="{{ language.translated.name }}">
+
+                                                        {% block layout_header_actions_languages_widget_form_items_flag %}
+                                                            {% set isoCode = language.translationCode.code|lower|split('-') %}
+                                                            {% set flagCountry = isoCode[0] %}
+                                                            {% set flagLanguage = isoCode[1] %}
+
+                                                            <label
+                                                                class="top-bar-list-label {% if language.id is same as(page.header.activeLanguage.id) %} disabled font-weight-bold{% endif %}"
+                                                                for="{{ position }}-{{ language.id }}">
+                                                                <input id="{{ position }}-{{ language.id }}"
+                                                                       class="top-bar-list-radio"
+                                                                       value="{{ language.id }}"
+                                                                       name="languageId"
+                                                                       type="radio"
+                                                                    {% if language.id is same as(page.header.activeLanguage.id) %} checked{% endif %}>
+                                                                {{ language.name }}
+                                                            </label>
+                                                        {% endblock %}
+                                                    </span>
+                                            {% endfor %}
+
+                                            <input name="redirectTo" type="hidden"
+                                                   value="{{ app.request.get('_route') }}"/>
+
+                                            {% for key, value in app.request.attributes.get('_route_params') %}
+                                                <input name="redirectParameters[{{ key }}]" type="hidden"
+                                                       value="{{ value }}">
+                                            {% endfor %}
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="footer-socials text-right">
+                                {% for social in socials %}
+                                    {% if social.url %}
+                                        <a class="footer-social-button" rel="noopener"
+                                           aria-label="{{ social.title }} Page"
+                                           target="_blank" href="{{ social.url }}" title="{{ social.title }}"><i
+                                                aria-hidden="true" aria-label="{{ social.title }} Page"
+                                                class="{{ social.icon }}"></i></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+
+    {% block layout_footer_bottom %}
+        <div class="footer-bottom">
+            {% block layout_footer_copyright %}
+                <div class="footer-copyright">
+                    {% sw_icon 'shopware' style {'size':'xs'} %}
+                    {{ "footer.copyrightInfo"|trans|sw_sanitize }}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    <div class="call-now-button" id="draggable">
+        <div>
+            <p class="call-text">
+                <b>{{ 'customFields.custom_company_info_hotline' | trans }}: {{ context.salesChannel.translated.customFields.custom_company_info_hotline }}</b>
+            </p>
+            <a href="tel:{{ context.salesChannel.translated.customFields.custom_company_info_hotline }}" id="quickcallbutton" '="" title="Call Now">
+            <div class="quick-alo-ph-circle active"></div>
+            <div class="quick-alo-ph-circle-fill active"></div>
+            <div class="quick-alo-ph-img-circle shake"></div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

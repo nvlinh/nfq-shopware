@@ -1,0 +1,3 @@
+swag_extension_store:
+    resource: ../../Core/Api/*Controller.php
+    type: annotation

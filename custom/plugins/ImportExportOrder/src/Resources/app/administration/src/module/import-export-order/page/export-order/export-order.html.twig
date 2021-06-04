@@ -1,0 +1,30 @@
+{% block sw_import_export_view_export %}
+    <div class="sw-import-export-view-export">
+        <sw-card-view :isLoading="exportRunning">
+            <sw-card :title="$t('application.export.sectionLabel')">
+
+                <sw-datepicker
+                    id="from-date"
+                    v-model="fromDate"
+                    :label="$t('application.export.fromDateLabel')"/>
+
+                <sw-datepicker
+                    id="to-date"
+                    v-model="toDate"
+                    :label="$t('application.export.toDateLabel')"/>
+
+                <sw-container columns="1fr 1fr">
+                    <div>
+                        <sw-button variant="primary" @click="startExport">
+                            {{ $t('application.buttons.startExportLabel') }}
+                        </sw-button>
+                    </div>
+                    <div class="last-export--container">
+                        <p>{{ $t('application.export.lastExportLabel') }}
+                            : {{ new Date(lastExportAt).toLocaleDateString() }}</p>
+                    </div>
+                </sw-container>
+            </sw-card>
+        </sw-card-view>
+    </div>
+{% endblock %}

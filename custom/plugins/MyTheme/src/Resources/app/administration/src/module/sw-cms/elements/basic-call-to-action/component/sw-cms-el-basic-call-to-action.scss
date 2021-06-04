@@ -1,0 +1,11 @@
+.sw-cms-element-basic-call-to-action {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+    grid-gap: 40px;
+
+    .sw-button {
+        margin-top: 15px;
+    }
+}

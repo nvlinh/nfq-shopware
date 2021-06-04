@@ -1,0 +1,71 @@
+{% block element_basic_call_to_action %}
+    {% set imageElement %}
+        {% block element_image_inner %}
+            {% block element_image_container %}
+                <div class="cms-image-container">
+                    {% block element_image_media %}
+                        {% set attributes = {
+                            'class': 'cms-image',
+                            'alt': (element.data.media.translated.alt ?: ''),
+                            'title': (element.data.media.translated.title ?: ''),
+                        } %}
+
+                        {% if element.translated.config.mediaMaxWidth.value %}
+                            {% set attributes = attributes|merge({ 'style': 'max-width: ' ~ element.translated.config.mediaMaxWidth.value|raw }) %}
+                        {% endif %}
+
+                        {% sw_thumbnails 'cms-image-thumbnails' with {
+                            media: element.data.media
+                        } %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        {% endblock %}
+    {% endset %}
+
+    {% set elementElement %}
+        {% block element_text_inner %}
+            {% if element.translated.config.title.value %}
+                <h2>{{ element.translated.config.title.value }}</h2>
+            {% endif %}
+
+            {{ element.translated.config.content.value|raw }}
+
+            {% if element.config.linkBool.value %}
+                <a class="btn btn-info"
+                   href="{{ element.config.btnUrl.value }}">{{ element.translated.config.btnText.value }}</a>
+            {% endif %}
+        {% endblock %}
+    {% endset %}
+
+    <div class="block-content-center">
+        <div class="cms-block-container-row cms-row row">
+            {% if element.config.imagePosition.value == 'right' %}
+                <div class="col-md-6">
+                    <div class="cms-element-text">
+                        {{ elementElement }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="cms-element-image">
+                        {{ imageElement }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-6">
+                    <div class="cms-element-image">
+                        {{ imageElement }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="cms-element-text">
+                        {{ elementElement }}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

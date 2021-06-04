@@ -1,0 +1,27 @@
+{
+    "elements": {
+        "tabs": {
+            "mediaUpload": "Media",
+            "content": "Content",
+            "settings": "Settings"
+        },
+        "label": "Basic - Call to action",
+        "title": "Title",
+        "content": "Content",
+        "symbol": "Symbol",
+        "symbolcolor": "Color",
+        "symbolsize": "Size",
+        "linkBool": "Enable button",
+        "imagePosition": "Image Position",
+        "position": {
+            "left": "Left",
+            "center": "Center",
+            "right": "Right"
+        },
+        "btnText": "Button text",
+        "btnUrl": "Button URL",
+        "newTab": "Open link in new tab",
+        "mediaUpload": "Image/Video Upload",
+        "mediaMaxWidth": "Max width"
+    }
+}

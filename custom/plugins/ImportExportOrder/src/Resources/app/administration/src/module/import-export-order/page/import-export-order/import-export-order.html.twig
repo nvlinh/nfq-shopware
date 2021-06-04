@@ -1,0 +1,26 @@
+{% block invoice_export_create %}
+    <sw-page class="import-export-order">
+        <template slot="content">
+            <sw-card-view slot="content">
+                {% block sw_import_export_tabs %}
+                    <sw-tabs>
+                        {% block sw_import_export_tabs_import %}
+                            <sw-tabs-item :route="{ name: 'import.export.order.index.import' }">
+                                {{  $tc('sw-import-export.page.importTab')  }}
+                            </sw-tabs-item>
+                        {% endblock %}
+
+                        {% block sw_import_export_tabs_export %}
+                            <sw-tabs-item :route="{ name: 'import.export.order.index.export' }">
+                                {{  $tc('sw-import-export.page.exportTab')  }}
+                            </sw-tabs-item>
+                        {% endblock %}
+                    </sw-tabs>
+                {% endblock %}
+
+                <router-view ref="tabContent"></router-view>
+            </sw-card-view>
+        </template>
+    </sw-page>
+
+{% endblock %}

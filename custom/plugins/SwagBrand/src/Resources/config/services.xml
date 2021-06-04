@@ -6,12 +6,12 @@
 
     <services>
         <service id="SwagBrand\Core\Content\Brand\BrandDefinition">
-            <tag name="shopware.entity.definition" entity="swag_brand" />
-            <tag name="shopware.composite_search.definition" priority="500" />
+            <tag name="shopware.entity.definition" entity="swag_brand"/>
+            <tag name="shopware.composite_search.definition" priority="500"/>
         </service>
 
         <service id="SwagBrand\Core\Content\Brand\Aggregate\BrandTranslation\BrandTranslationDefinition">
-            <tag name="shopware.entity.definition" entity="swag_brand_translation" />
+            <tag name="shopware.entity.definition" entity="swag_brand_translation"/>
         </service>
 
         <service id="SwagBrand\Core\Content\Product\ProductExtension">
@@ -24,6 +24,14 @@
 
         <service id="SwagBrand\Resources\snippet\de_DE\SnippetFile_de_DE">
             <tag name="shopware.snippet.file" priority="100"/>
+        </service>
+
+        <service id="SwagBrand\Core\Api\TestController" public="true">
+            <argument id="country.repository" type="service"/>
+<!--            <argument id="brand.repository" type="service"/>-->
+            <call method="setContainer">
+                <argument id="service_container" type="service"/>
+            </call>
         </service>
     </services>
 </container>

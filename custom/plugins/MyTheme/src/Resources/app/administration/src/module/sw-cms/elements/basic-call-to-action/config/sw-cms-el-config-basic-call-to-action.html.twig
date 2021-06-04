@@ -1,0 +1,192 @@
+{% block sw_cms_element_basic_call_to_action %}
+    <div class="sw-cms-el-config-basic-call-to-action">
+        {# Tabs oben: Start #}
+        <sw-tabs defaultItem="content">
+            {# Tabs oben Template: Start #}
+            <template slot-scope="{ active }">
+                <sw-tabs-item name="content" :activeTab="active">
+                    {{ $tc('elements.tabs.content') }}
+                </sw-tabs-item>
+
+                <sw-tabs-item name="image" :activeTab="active">
+                    {{ $tc('elements.tabs.mediaUpload') }}
+                </sw-tabs-item>
+
+                <sw-tabs-item name="settings" :activeTab="active">
+                    {{ $tc('elements.tabs.settings') }}
+                </sw-tabs-item>
+            </template>
+
+            <template slot="content" slot-scope="{ active }">
+                <sw-container v-if="active === 'content'"
+                              class="sw-cms-el-config-form__tab-content">
+
+                    {# title #}
+                    <div class="cg-overlay-title">
+                        <div>
+                            <label class="custom-cg-label" for="title">{{ $t('elements.title') }}</label>
+                            <input id="title" class="custom-cg-input" type="text"
+                                   v-model="element.config.title.value" maxlength="100">
+                        </div>
+                        <div v-if="element.config.title.value" class="char-counter"><span
+                                v-if="element.config.title.value.length < 100">{{ element.config.title.value.length }}</span><span
+                                style="color:red;" v-else>100</span>/ 100
+                        </div>
+                    </div>
+
+                    {# content #}
+                    <sw-cms-mapping-field valueTypes="string"
+                                          :label="$tc('elements.content')"
+                                          v-model="element.config.content">
+                        <sw-text-editor v-model="element.config.content.value">
+                        </sw-text-editor>
+                    </sw-cms-mapping-field>
+
+                    {# button link #}
+                    <div class="cg-link-wrapper">
+                        <div class="cg-link">
+                            <sw-switch-field :label="$tc('elements.linkBool')"
+                                             v-model="element.config.linkBool.value">
+                            </sw-switch-field>
+                        </div>
+
+                        <div class="cg-url" v-show="element.config.linkBool.value">
+                            <span class="custom-cg-label">{{ $tc('elements.btnUrl') }}</span>
+                            <sw-url-field v-model="element.config.btnUrl.value"></sw-url-field>
+                        </div>
+
+                        <div class="cg-text" v-show="element.config.linkBool.value">
+                            <span class="custom-cg-label">{{ $tc('elements.btnText') }}</span>
+                            <input id="cg-link-input" class="custom-cg-input" type="text"
+                                   v-model="element.config.btnText.value" maxlength="60">
+
+                            <div v-if="element.config.btnText.value" class="char-counter"><span
+                                    v-if="element.config.btnText.value.length < 60">{{ element.config.btnText.value.length }}</span><span
+                                    style="color:red;" v-else>60</span>/ 60
+                            </div>
+                        </div>
+
+                        <div class="cg-new-tab" v-show="element.config.linkBool.value">
+                            <sw-field v-model="element.config.newTab.value"
+                                      bordered
+                                      type="switch"
+                                      :label="$tc('elements.newTab')">
+                            </sw-field>
+                        </div>
+                    </div>
+
+                </sw-container>
+
+                <sw-container v-if="active === 'image'">
+
+                    {# image position #}
+                    <div class="cg-select-wrapper">
+                        <label class="custom-cg-label" for="positionselect">{{ $t('elements.imagePosition') }}</label>
+                        <select class="cg-custom-select" v-model="element.config.imagePosition.value"
+                                name="positionselect">
+                            <option value="left">{{ $t('elements.position.left') }}</option>
+                            <option value="right">{{ $t('elements.position.right') }}</option>
+                        </select>
+                    </div>
+
+                    {# media max width #}
+                    <div class="cg-image-max-width">
+                        <label class="custom-cg-label">{{ $t('elements.mediaMaxWidth') }}</label>
+                        <input class="custom-cg-input" type="text"
+                               v-model="element.config.mediaMaxWidth.value">
+                    </div>
+
+                    <sw-cms-mapping-field valueTypes="entity"
+                                          entity="media"
+                                          v-model="element.config.media"
+                                          :label="$tc('elements.mediaUpload')">
+                        <sw-media-upload-v2 variant="regular"
+                                            :uploadTag="uploadTag"
+                                            :source="previewSource"
+                                            :allowMultiSelect="false"
+                                            :defaultFolder="cmsPageState.pageEntityName"
+                                            :caption="$tc('elements.mediaUpload')"
+                                            @media-upload-sidebar-open="onOpenMediaModal"
+                                            @media-upload-remove-image="onImageRemove">
+                        </sw-media-upload-v2>
+
+                        <div class="sw-cms-el-config-image__mapping-preview" slot="preview" slot-scope="{ demoValue }">
+                            <img :src="demoValue.url" v-if="demoValue.url">
+                            <sw-alert class="sw-cms-el-config-image__preview-info" variant="info" v-else>
+                                {{ $tc('sw-cms.detail.label.mappingEmptyPreview') }}
+                            </sw-alert>
+                        </div>
+                    </sw-cms-mapping-field>
+
+                    <sw-upload-listener
+                        :uploadTag="uploadTag"
+                        autoUpload
+                        @media-upload-finish="onImageUpload">
+                    </sw-upload-listener>
+
+                    <sw-media-modal-v2
+                        variant="regular"
+                        v-if="mediaModalIsOpen"
+                        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                        :entityContext="cmsPageState.entityName"
+                        :allowMultiSelect="false"
+                        :initialFolderId="cmsPageState.defaultMediaFolderId"
+                        @media-upload-remove-image="onImageRemove"
+                        @media-modal-selection-change="onSelectionChanges"
+                        @modal-close="onCloseModal">
+                    </sw-media-modal-v2>
+                </sw-container>
+
+                <sw-container v-else-if="active === 'settings'"
+                              class="sw-cms-el-config-form__tab-options">
+
+                    {# symbol selection #}
+                    <div class="cg-select-wrapper">
+                        <label class="custom-cg-label" for="symbolselect">{{ $t('elements.symbol') }}</label>
+                        <select class="cg-custom-select" v-model="element.config.gsymbol.value"
+                                name="symbolselect">
+                            <option value="symbol1">Symbol 1</option>
+                            <option value="symbol2">Symbol 2</option>
+                            <option value="symbol3">Symbol 3</option>
+                            <option value="symbol4">Symbol 4</option>
+                            <option value="symbol5">Symbol 5</option>
+                            <option value="symbol6">Symbol 6</option>
+                            <option value="symbol7">Symbol 7</option>
+                            <option value="symbol8">Symbol 8</option>
+                            <option value="symbol9">Symbol 9</option>
+                            <option value="symbol10">Symbol 10</option>
+                            <option value="symbol11">Symbol 11</option>
+                            <option value="symbol12">Symbol 12</option>
+                        </select>
+                    </div>
+
+                    {# color selection #}
+                    <sw-colorpicker :label="$tc('elements.symbolcolor')"
+                                    v-model="element.config.gsymbolcolor.value"
+                                    colorOutput="hex"
+                                    :zIndex="1001"
+                                    :disabled="false"
+                                    :colorLabels="true"
+                                    :alpha="true">
+                    </sw-colorpicker>
+
+                    {# symbol selection #}
+                    <div class="cg-select-wrapper">
+                        <label class="custom-cg-label" for="sizeselect">{{ $t('elements.symbolsize') }}</label>
+                        <select class="cg-custom-select" v-model="element.config.gsymbolsize.value"
+                                name="sizeselect">
+                            <option value="30px">30px</option>
+                            <option value="60px">60px</option>
+                            <option value="90px">90px</option>
+                            <option value="120px">120px</option>
+                            <option value="150px">150px</option>
+                            <option value="180px">180px</option>
+                            <option value="210px">210px</option>
+                            <option value="240px">240px</option>
+                        </select>
+                    </div>
+                </sw-container>
+            </template>
+        </sw-tabs>
+    </div>
+{% endblock %}

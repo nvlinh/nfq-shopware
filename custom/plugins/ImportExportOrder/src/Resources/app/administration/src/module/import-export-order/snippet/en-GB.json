@@ -1,0 +1,30 @@
+{
+    "general": {
+        "name": "Import/Export Order",
+        "title": "Import/Export Order",
+        "description": "Import/Export orders"
+    },
+    "navigation": {
+        "label": "Import/Export Order"
+    },
+    "application": {
+        "export": {
+            "sectionLabel": "Export",
+            "fromDateLabel": "Start date",
+            "toDateLabel": "End date",
+            "lastExportLabel": "Last export at"
+        },
+        "buttons": {
+            "startExportLabel": "Export orders",
+            "open": "Open",
+            "inProgress": "In progress",
+            "done": "Done",
+            "cancelled": "Cancelled"
+        },
+        "errors": {
+            "noOrdersFound": "No orders found for the chosen timespan!",
+            "loadingSettings": "An error occured while loading the settings",
+            "savingSettings": "An error occured while saving the settings"
+        }
+    }
+}

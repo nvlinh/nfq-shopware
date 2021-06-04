@@ -1,0 +1,36 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    {% set categoryMediaId = page.product.seoCategory.mediaId %}
+
+    {% if categoryMediaId %}
+        {# fetch media as batch - optimized for performance #}
+        {% set mediaCategory = searchMedia([categoryMediaId], context.context) %}
+
+        <div class="cms-element-image">
+            {% sw_thumbnails 'cms-image-thumbnails' with {
+                media: mediaCategory.elements[categoryMediaId],
+                attributes: {
+                    'class': 'cms-image',
+                }
+            } %}
+        </div>
+    {% endif %}
+
+    <div class="container">
+        {% block base_main_container %}
+            <div class="container-main">
+                <div class="breadcrumb cms-breadcrumb container">
+                    {% block base_breadcrumb %}
+                        {% sw_include '@Storefront/storefront/layout/breadcrumb.html.twig' with {
+                            context: context,
+                            category: page.product.seoCategory
+                        } only %}
+                    {% endblock %}
+                </div>
+
+                {% block base_content %}{% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

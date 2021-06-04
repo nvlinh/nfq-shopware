@@ -1,0 +1,35 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/description.html.twig' %}
+
+{% block page_product_detail_description_title %}{% endblock %}
+
+ {% block page_product_detail_description_content %}
+     <div class="row">
+         <div class="col-md-6 col-sm-4 col-xs-12 info info-left">
+             <h3>Thông tin sản phẩm</h3>
+             {% block page_product_detail_description_content_text %}
+                 <div class="product-detail-description-text"
+                      itemprop="description">
+                     {{ page.product.translated.description|raw }}
+                 </div>
+             {% endblock %}
+
+             {% block page_product_detail_description_content_properties %}
+                 {% if page.product.sortedProperties|length > 0 %}
+                     {% sw_include '@Storefront/storefront/page/product-detail/properties.html.twig' %}
+                 {% endif %}
+             {% endblock %}
+         </div>
+
+{#         <div class="col-md-4 col-sm-4 col-xs-12 info info-image">#}
+{#         </div>#}
+
+         <div class="col-md-6 col-sm-4 col-xs-12 info info-right">
+             <h3>Hướng dẫn sử dụng</h3>
+             <ul>
+                 <li>Bảo quản: Nơi khô thoáng</li>
+                 <li>Hạn sử dụng: Xem trên bao bì</li>
+                 <li>Cách pha trà: Cho gói trà vào tách, đổ nước sôi vào. Ngâm khoảng 2 - 3 phút, nhúng gói trà 5 lần rồi lấy ra. Giờ bạn có thể thưởng thức</li>
+             </ul>
+         </div>
+     </div>
+ {% endblock %}

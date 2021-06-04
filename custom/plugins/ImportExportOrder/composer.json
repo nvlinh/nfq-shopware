@@ -1,0 +1,18 @@
+{
+  "name": "swag/plugin-import-export-order",
+  "description": "Import/Export Order",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "ImportExportOrder\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "ImportExportOrder\\ImportExportOrder",
+    "label": {
+      "de-DE": "Import/Export Order plugin",
+      "en-GB": "Import/Export Order plugin"
+    }
+  }
+}

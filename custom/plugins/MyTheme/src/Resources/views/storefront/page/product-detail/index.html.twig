@@ -1,0 +1,20 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_headline %}{% endblock %}
+
+{% block page_product_detail_buy %}
+    <div class="col-lg-5 product-detail-buy">
+        <div class="row align-items-center product-detail-headline">
+            {% sw_include '@Storefront/storefront/page/product-detail/headline.html.twig' %}
+        </div>
+
+        {% sw_include '@Storefront/storefront/page/product-detail/buy-widget.html.twig' %}
+    </div>
+
+    <template data-product-detail-plugin></template>
+{% endblock %}
+
+{% block base_content  %}
+    {{ parent() }}
+    <template data-product-detail-plugin></template>
+{% endblock %}

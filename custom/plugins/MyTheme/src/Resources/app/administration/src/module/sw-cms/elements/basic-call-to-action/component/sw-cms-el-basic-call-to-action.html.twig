@@ -1,0 +1,29 @@
+{% block sw_cms_element_basic_call_to_action %}
+    <div class="sw-cms-element-basic-call-to-action">
+        <template v-if="element.config.imagePosition.value == 'right'">
+            <div class="sw-cms-el-text">
+                <h3 class="headline">{{ element.config.title.value }}</h3>
+                <p>{{ element.config.content.value | truncate(200, true, '...') }}</p>
+                <a v-if="element.config.linkBool.value" class="sw-button sw-button--primary"
+                   href="#">{{ element.config.btnText.value }}</a>
+            </div>
+
+            <div class="sw-cms-el-image">
+                <img :src="mediaUrl">
+            </div>
+        </template>
+
+        <template v-else>
+            <div class="sw-cms-el-image">
+                <img :src="mediaUrl">
+            </div>
+
+            <div class="sw-cms-el-text">
+                <h3 class="headline">{{ element.config.title.value }}</h3>
+                <p>{{ element.config.content.value | truncate(200, true, '...') }}</p>
+                <a v-if="element.config.linkBool.value" class="sw-button sw-button--primary"
+                   href="#">{{ element.config.btnText.value }}</a>
+            </div>
+        </template>
+    </div>
+{% endblock %}
